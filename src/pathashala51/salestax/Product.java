@@ -1,35 +1,20 @@
 package pathashala51.salestax;
 
 
+import static java.lang.Math.round;
+
 public class Product {
   final String name;
-  private double price;
-  int quantity;
-  private ProductType type;
+  private final double price;
+  final int quantity;
+  private final ProductType type;
   Tax tax=new Tax();
 
-//  private static Set<Product> exemptedProducts= new HashSet<>(  Arrays.asList(
-//      new Product("packet of headache pills"),
-//      new Product("book"),
-//      new Product("imported box of chocolates"),
-//      new Product("box of imported chocolates"),
-//      new Product("chocolate bar"),
-//      new Product("bar of chocolate")));
 
-
-  public Product(String name, double price) {
-    this(name,1,price);
-  }
   public Product(String name,int quantity, double price) {
-    this.name = name;
-    this.price = price;
-    this.quantity = quantity;
+    this(name,quantity,price,ProductType.UNIMPORTED_AND_UNEXEMPTED);
   }
 
-  public Product(String name) {
-
-    this.name = name;
-  }
 
   public Product(String name, int quantity, double price, ProductType type) {
     this.name = name;
@@ -52,6 +37,19 @@ public class Product {
   public double getPrice()
   {
     return price;
+  }
+
+  public double calculateNewPrice() {
+    double newPrice=price;
+    double tax= new Tax().getTaxPercentage(this);
+    newPrice=newPrice*this.quantity;
+    newPrice=round((newPrice+(round(newPrice*tax*10.0)/10.0))*100.0)/100.0;
+    return newPrice;
+  }
+  public double calculateTax() {
+    double tax= new Tax().getTaxPercentage(this);
+    double taxPrice=round((price*quantity)*tax*10.0)/10.0;
+    return taxPrice;
   }
 
   @Override

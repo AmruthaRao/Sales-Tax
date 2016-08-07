@@ -11,7 +11,7 @@ public class Receipt {
   public double getTotalAmount(List<Product> products) {
     sum=0.0;
     for (Product product : products) {
-      sum+=tax.applySalesTaxOn(product);
+      sum+=product.calculateNewPrice();
     }
     return sum;
   }
@@ -19,7 +19,7 @@ public class Receipt {
   public double getTotalTax(List<Product> products) {
     double salesTax=0.0;
     for (Product product : products) {
-      salesTax+=tax.getTaxForTheProduct(product);
+      salesTax+=product.calculateTax();
     }
     return salesTax;
   }

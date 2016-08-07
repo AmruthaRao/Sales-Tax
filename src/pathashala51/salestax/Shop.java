@@ -85,7 +85,7 @@ import static java.util.Arrays.asList;
    private static void printReceipt() {
     double itemCost;
     for (Product item : items) {
-      itemCost=new Tax().applySalesTaxOn(item);
+      itemCost=item.calculateNewPrice();
       System.out.println(item.quantity+" "+item.name+" -"+itemCost);
     }
     System.out.println("Sales Tax -"+new Receipt().getTotalTax(items));
