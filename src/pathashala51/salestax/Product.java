@@ -21,7 +21,7 @@ public class Product {
 
 
   public Product(String name, double price) {
-    this(name,0,price);
+    this(name,1,price);
   }
   public Product(String name,int quantity, double price) {
     this.name = name;

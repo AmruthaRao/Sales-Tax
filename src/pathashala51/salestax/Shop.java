@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import static java.util.Arrays.asList;
 
-public class Shop {
+ class Shop {
   static List<Product> items = new ArrayList<>();
 
   Shop(Product... product) {
@@ -20,15 +20,19 @@ public class Shop {
 
     while (i != 1) {
       Scanner reply = new Scanner(System.in);
+
       System.out.println("Enter the Product Name you want to Purchase");
-      String name = reply.nextLine();
-      System.out.println("Enter the quantity");
-      int quantity = reply.nextInt();
-      System.out.println("Enter the price");
-      double price = reply.nextDouble();
-      System.out.println(name + quantity + price);
+      String input = reply.nextLine();
+
+      String [] words=input.split("\\s");
+
+      int quantity = Integer.parseInt(words[0]);
+      double price = Double.parseDouble(words[words.length-1]);
+      String name = getProductName(words);
+
       Product product = new Product(name, quantity, price);
       items.add(product);
+
       System.out.println("Enter 0 to continue shopping and 1 to stop");
       i = reply.nextInt();
       if (i == 1) {
@@ -39,7 +43,15 @@ public class Shop {
 
   }
 
-  private static void printReceipt() {
+   private static String getProductName(String[] words) {
+     String name="";
+     for (int j = 1; j <words.length-2; j++) {
+       name+=words[j];
+     }
+     return name;
+   }
+
+   private static void printReceipt() {
     double itemCost;
     for (Product item : items) {
       itemCost=new Tax().applySalesTaxOn(item);
