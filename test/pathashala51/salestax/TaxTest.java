@@ -6,18 +6,21 @@ import org.junit.Test;
 public class TaxTest {
   @Test
   public void shouldBeAbleToComputeTaxedCostOfImportedUnExemptedProduct(){
-    Product product=new Product("imported bottle of perfume",27.99);
+    ProductType type = ProductType.IMPORTED_AND_UNEXEMPTED;
+    Product product=new Product("imported bottle of perfume",1,27.99, type);
     Assert.assertEquals(32.19,new Tax().applySalesTaxOn(product),0);
   }
 
   @Test
   public void shouldBeAbleToComputeTaxedCostOfUnImportedExemptedProduct(){
-    Product product=new Product("bar of chocolate",10.0);
+    ProductType type = ProductType.UNIMPORTED_AND_EXEMPTED;
+    Product product=new Product("bar of chocolate",1,10.0, type);
     Assert.assertEquals(10.0,new Tax().applySalesTaxOn(product),0);
   }
   @Test
   public void shouldBeAbleToComputeTaxedCostOfUnImportedAndExemptedProduct(){
-    Product product=new Product("imported box of chocolates",10);
+    ProductType type = ProductType.IMPORTED_AND_EXEMPTED;
+    Product product=new Product("imported box of chocolates",1,10, type);
     Assert.assertEquals(10.50,new Tax().applySalesTaxOn(product),0);
   }
 
