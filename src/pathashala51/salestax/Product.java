@@ -8,7 +8,6 @@ public class Product {
   private final double price;
   final int quantity;
   private final ProductType type;
-  Tax tax=new Tax();
 
 
   public Product(String name,int quantity, double price) {
@@ -34,20 +33,16 @@ public class Product {
 
   }
 
-  public double getPrice()
-  {
-    return price;
-  }
 
   public double calculateNewPrice() {
     double newPrice=price;
-    double tax= new Tax().getTaxPercentage(this);
+    double tax= this.type.tax;
     newPrice=newPrice*this.quantity;
     newPrice=round((newPrice+(round(newPrice*tax*10.0)/10.0))*100.0)/100.0;
     return newPrice;
   }
   public double calculateTax() {
-    double tax= new Tax().getTaxPercentage(this);
+    double tax= this.type.tax;
     double taxPrice=round((price*quantity)*tax*10.0)/10.0;
     return taxPrice;
   }

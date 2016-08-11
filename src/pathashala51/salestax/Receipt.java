@@ -4,7 +4,6 @@ package pathashala51.salestax;
 import java.util.List;
 
 public class Receipt {
-  private Tax tax=new Tax();
   private double sum=0.0;
 
 
@@ -23,4 +22,18 @@ public class Receipt {
     }
     return salesTax;
   }
+
+  void printReceipt(List<Product> items) {
+    double itemCost;
+    for (Product item : items) {
+      itemCost = item.calculateNewPrice();
+      System.out.println(item.quantity + " " + item.name + " -" + itemCost);
+    }
+    System.out.println("Sales Tax -" + new Receipt().getTotalTax(items));
+    System.out.println("Total -" + getTotalAmount(items));
+  }
+
+
+
+
 }
